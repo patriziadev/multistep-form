@@ -15,6 +15,25 @@ $white: hsl(0, 0%, 100%);
 $main-font-family: "Ubuntu", sans-serif;
 $main-font-size: 16px;
 
+// Button
+@mixin nextButton {
+    color: $alabaster;
+    background-color: $marine-blue;
+    padding: 10px 20px;
+    margin-top: 1em;
+    border: 0;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+        filter: brightness(1.8);
+    }
+    &[disabled] {
+        cursor: none;
+        background-color: $pastel-blue;
+    }
+}
+
 body {
     font-family: $main-font-family;
     font-size: $main-font-size;
@@ -23,6 +42,7 @@ body {
     main {
         #wrapper {
             width: 50rem;
+            max-height: 568px;
             border-radius: 20px;
             background-color: $alabaster;
             position: fixed;
@@ -35,8 +55,78 @@ body {
             nav {
                 width: 30%;
                 background-image: url(./assets/images/bg-sidebar-desktop.svg);
+                background-position: bottom;
+                border-radius: 10px;
             }
             section {
+                color: $cool-gray;
+                padding: 0 3em;
+
+                h1 {
+                    color: $marine-blue;
+                    font-size: xx-large;
+                }
+
+                label {
+                    color: $marine-blue;
+                    text-transform: capitalize;
+                    display: inline-block;
+                }
+
+                #step1 {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    .input-form {
+                        padding: 10px 0;
+
+                        .input-info {
+                            font-size: small;
+                            padding: 10px 0;
+                            display: flex;
+                            justify-content: space-between;
+
+                            .validation-error {
+                                color: $strawberry-red;
+                                font-weight: bold;
+                            }
+                        }
+
+                        input {
+                            color: $marine-blue;
+                            font-weight: bold;
+                            width: calc(100% - 20px);
+                            font-size: $main-font-size;
+                            background-color: transparent;
+                            border: 1px solid $light-gray;
+                            border-radius: 5px;
+                            padding: 10px;
+
+                            &::placeholder {
+                                color: $cool-gray;
+                                font-size: $main-font-size;
+                                font-weight: normal;
+                            }
+
+                            &.ng-invalid.ng-touched {
+                                border-color: $strawberry-red;
+                            }
+
+                            &:focus {
+                                border-color: $purplish-blue;
+                            }
+                        }
+                    }
+
+                    .form-closure {
+                        text-align: right;
+                        margin-top: 3em;
+                    }
+
+                    button {
+                        @include nextButton();
+                    }
+                }
             }
         }
     }
