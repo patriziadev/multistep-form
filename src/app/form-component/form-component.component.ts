@@ -1,22 +1,28 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
 
 @Component({
     selector: "app-form-component",
     templateUrl: "./form-component.component.html",
     styleUrls: ["./form-component.component.scss"],
 })
-export class FormComponentComponent implements OnInit {
-    formData = {};
-    step = 1;
+export class FormComponentComponent implements OnInit, OnDestroy {
+    step: number;
+    private subscriptionDataFromStore: any;
 
-    constructor() {}
+    constructor(private store: Store<{ formData: { formStep: number } }>) {}
+
     ngOnInit() {
-        console.log(this.step);
+        this.subscriptionDataFromStore = this.store
+            .select("formData")
+            .subscribe((data) => {
+                this.step = data.formStep;
+                console.log(this.step);
+                return this.step;
+            });
     }
 
-    onAddPersonalData(data: any) {
-        this.formData = { ...this.formData, ...data };
-        console.log(this.formData);
-        this.step += 1;
+    ngOnDestroy() {
+        this.subscriptionDataFromStore.unsubscribe();
     }
 }
