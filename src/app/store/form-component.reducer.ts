@@ -1,6 +1,10 @@
-import { Action } from "@ngrx/store";
-import { SubscriptionModel } from "../models/subscription.model";
-import * as FormComponentActions from "./form-component.actions";
+import { SubscriptionModel } from "./../models/subscription.model";
+import * as formComponentActions from "./form-component.actions";
+
+export interface State {
+    subscriptionData: SubscriptionModel;
+    step: number;
+}
 
 const initialState = {
     subscriptionData: {
@@ -13,30 +17,26 @@ const initialState = {
         largerStorage: false,
         custoizableProfile: false,
     },
-    formStep: 1,
+    step: 1,
 };
 
-export function formReduce(state = initialState, action: Action) {
+export function FormReducer(
+    state = initialState,
+    action: formComponentActions.formActions
+): State {
     switch (action.type) {
-        case FormComponentActions.UPDATE_FORM: {
+        case formComponentActions.EDIT_FORM:
             return {
                 ...state,
                 subscriptionData: {
                     ...state.subscriptionData,
-                    ...action,
+                    ...action.payload,
                 },
             };
-        }
-        case FormComponentActions.STEP_FORWARD: {
+        case formComponentActions.STEP_FORWARD:
             return {
                 ...state,
-                formStep: state.formStep + 1,
-            };
-        }
-        case FormComponentActions.STEP_BACK:
-            return {
-                ...state,
-                formStep: state.formStep - 1,
+                step: state.step + 1,
             };
         default:
             return state;

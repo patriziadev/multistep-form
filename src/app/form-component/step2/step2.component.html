@@ -1,0 +1,11 @@
+<form>
+    <div class="form-intro">
+        <h1>Select your plan</h1>
+        <p>You have the option of monthly or yearly billing.</p>
+    </div>
+    <div class="form-body">
+        <div *ngFor="let planType of planTypes">
+            <input type="radio" name="planType" /> {{ planType }}
+        </div>
+    </div>
+</form>

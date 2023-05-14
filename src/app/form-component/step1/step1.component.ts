@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
+import * as FormComponentActions from "../../store/form-component.actions";
+import * as fromApp from "../../store/app.reducer";
 import { SubscriptionModel } from "src/app/models/subscription.model";
-import * as FormActions from "../../store/form-component.actions";
 
 @Component({
     selector: "app-step1",
@@ -12,21 +13,18 @@ import * as FormActions from "../../store/form-component.actions";
 export class Step1Component implements OnInit, OnDestroy {
     public personalInfo: FormGroup | any;
     private subscriptionDataFromStore: any;
-    private formSubscriptionData: SubscriptionModel;
+    public formSubscriptionData: SubscriptionModel;
 
-    constructor(
-        private store: Store<{
-            formData: { subscriptionData: SubscriptionModel };
-        }>
-    ) {}
+    constructor(private store: Store<fromApp.AppState>) {}
 
     ngOnInit() {
         this.subscriptionDataFromStore = this.store
-            .select("formData")
+            .select("form")
             .subscribe((data) => {
                 this.formSubscriptionData = data.subscriptionData;
                 return this.formSubscriptionData;
             });
+
         this.personalInfo = new FormGroup({
             name: new FormControl(
                 this.formSubscriptionData.name,
@@ -48,9 +46,23 @@ export class Step1Component implements OnInit, OnDestroy {
     }
 
     onSubmit() {
+        this.formSubscriptionData = {
+            ...this.formSubscriptionData,
+            ...this.personalInfo.value,
+        };
+        this.store.dispatch(new FormComponentActions.stepForward());
         this.store.dispatch(
-            new FormActions.UpdateForm(this.formSubscriptionData)
+            new FormComponentActions.editForm({
+                name: this.personalInfo.value.name,
+                email: this.personalInfo.value.email,
+                phone: this.personalInfo.value.phone,
+                planType: this.formSubscriptionData.planType,
+                planPeriod: this.formSubscriptionData.planPeriod,
+                onlineService: this.formSubscriptionData.onlineService,
+                largerStorage: this.formSubscriptionData.largerStorage,
+                custoizableProfile:
+                    this.formSubscriptionData.custoizableProfile,
+            })
         );
-        this.store.dispatch(new FormActions.StepForward());
     }
 }

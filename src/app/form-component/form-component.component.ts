@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
+import * as fromApp from "../store/app.reducer";
 
 @Component({
     selector: "app-form-component",
@@ -7,17 +8,16 @@ import { Store } from "@ngrx/store";
     styleUrls: ["./form-component.component.scss"],
 })
 export class FormComponentComponent implements OnInit, OnDestroy {
-    step: number;
-    private subscriptionDataFromStore: any;
+    public step: number;
+    public subscriptionDataFromStore: any;
 
-    constructor(private store: Store<{ formData: { formStep: number } }>) {}
+    constructor(private store: Store<fromApp.AppState>) {}
 
     ngOnInit() {
         this.subscriptionDataFromStore = this.store
-            .select("formData")
+            .select("form")
             .subscribe((data) => {
-                this.step = data.formStep;
-                console.log(this.step);
+                this.step = data.step;
                 return this.step;
             });
     }
