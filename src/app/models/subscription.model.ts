@@ -4,7 +4,7 @@ export class SubscriptionModel {
         public email: string,
         public phone: string,
         public planType: string,
-        public planPeriod: string,
+        public yearlyPlan: boolean,
         public onlineService: boolean,
         public largerStorage: boolean,
         public custoizableProfile: boolean

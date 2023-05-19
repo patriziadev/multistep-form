@@ -1,0 +1,88 @@
+@import "../../../styles.scss";
+
+.form-body {
+    width: 100%;
+
+    #plans {
+        display: flex;
+        justify-content: space-between;
+
+        label {
+            width: 30%;
+            height: 11em;
+            border: 1px solid $cool-gray;
+            border-radius: 10px;
+            cursor: pointer;
+
+            &:hover {
+                border-color: $purplish-blue;
+            }
+
+            img {
+                max-width: 50px;
+            }
+
+            radio-button input[type="radio"]:checked {
+                background-color: #76cf9f;
+            }
+        }
+    }
+
+    #period {
+        .planPeriod {
+            width: 100%;
+            background: $magnolia;
+            border-radius: 10px;
+            height: 3rem;
+            margin: 2rem 0;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+
+            p {
+                font-weight: bold;
+            }
+
+            .switch {
+                display: inline-block;
+                height: 26px;
+                position: relative;
+                width: 60px;
+                margin: 0 20px;
+
+                .slider {
+                    background-color: $marine-blue;
+                    bottom: 0;
+                    cursor: pointer;
+                    left: 0;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    transition: 0.4s;
+                    border-radius: 50px;
+
+                    &::before {
+                        background-color: $alabaster;
+                        bottom: 4px;
+                        content: "";
+                        height: 18px;
+                        left: 4px;
+                        position: absolute;
+                        transition: 0.4s;
+                        width: 18px;
+                        border-radius: 50px;
+                    }
+                }
+            }
+
+            input:checked + .slider:before {
+                transform: translateX(34px);
+            }
+
+            .selectedItem {
+                color: $marine-blue;
+                font-weight: bold;
+            }
+        }
+    }
+}

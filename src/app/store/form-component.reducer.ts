@@ -12,7 +12,7 @@ const initialState = {
         email: "",
         phone: "",
         planType: "",
-        planPeriod: "monthly",
+        yearlyPlan: false,
         onlineService: false,
         largerStorage: false,
         custoizableProfile: false,

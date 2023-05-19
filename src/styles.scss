@@ -9,7 +9,6 @@ $cool-gray: hsl(231, 11%, 63%);
 $light-gray: hsl(229, 24%, 87%);
 $magnolia: hsl(217, 100%, 97%);
 $alabaster: hsl(231, 100%, 99%);
-$white: hsl(0, 0%, 100%);
 
 // Fonts
 $main-font-family: "Ubuntu", sans-serif;
@@ -61,6 +60,7 @@ body {
             section {
                 color: $cool-gray;
                 padding: 0 3em;
+                width: 58%;
 
                 h1 {
                     color: $marine-blue;

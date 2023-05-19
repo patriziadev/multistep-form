@@ -1,11 +1,56 @@
-<form>
+<form [formGroup]="planInfo" (ngSubmit)="onSubmit()">
     <div class="form-intro">
         <h1>Select your plan</h1>
         <p>You have the option of monthly or yearly billing.</p>
     </div>
     <div class="form-body">
-        <div *ngFor="let planType of planTypes">
-            <input type="radio" name="planType" /> {{ planType }}
+        <div id="plans">
+            <label *ngFor="let planType of planTypes" class="planItem">
+                <img
+                    src="/assets/images/icon-{{ planType.name }}.svg"
+                    alt="{{ planType.name }} icon"
+                />
+                <div class="planTypeName">{{ planType.name }}</div>
+                <div class="planTypeCost">${{ planType.monthlyCost }}/mo</div>
+                <input
+                    type="radio"
+                    name="planType"
+                    id="{{ planType.name }}"
+                    formControlName="planType"
+                />
+            </label>
         </div>
+        <div id="period">
+            <div class="planPeriod">
+                <p
+                    [ngClass]="{
+                        selectedItem: !planInfo.get('planPeriod').value
+                    }"
+                >
+                    Monthly
+                </p>
+                <label for="planDuration" class="switch">
+                    <input
+                        type="checkbox"
+                        name="planPeriod"
+                        id="planDuration"
+                        formControlName="planPeriod"
+                    />
+                    <div class="slider round"></div>
+                </label>
+                <p
+                    [ngClass]="{
+                        selectedItem: planInfo.get('planPeriod').value
+                    }"
+                >
+                    Yearly
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="form-closure">
+        <button type="button" (click)="onSubmit()" [disabled]="!planInfo.valid">
+            Next step
+        </button>
     </div>
 </form>
