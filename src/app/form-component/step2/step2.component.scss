@@ -13,17 +13,42 @@
             border: 1px solid $cool-gray;
             border-radius: 10px;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
 
             &:hover {
                 border-color: $purplish-blue;
             }
 
-            img {
-                max-width: 50px;
+            &.planItemSelected {
+                background-color: $magnolia;
+                border-color: $purplish-blue;
             }
 
-            radio-button input[type="radio"]:checked {
-                background-color: #76cf9f;
+            img {
+                max-width: 50px;
+                padding: 10px;
+            }
+
+            .planTypeText {
+                padding: 10px;
+                line-height: 0.4;
+
+                .planTypeName {
+                    text-transform: capitalize;
+                    font-weight: bold;
+                    @include textInEvidence;
+                }
+
+                .promo {
+                    @include textInEvidence;
+                    font-size: smaller;
+                }
+            }
+
+            input {
+                display: none;
             }
         }
     }
@@ -83,6 +108,14 @@
                 color: $marine-blue;
                 font-weight: bold;
             }
+            .promo {
+                color: $marine-blue;
+            }
         }
     }
+}
+
+.form-closure {
+    display: flex;
+    justify-content: space-between;
 }

@@ -14,23 +14,21 @@ $alabaster: hsl(231, 100%, 99%);
 $main-font-family: "Ubuntu", sans-serif;
 $main-font-size: 16px;
 
+// Text
+@mixin textInEvidence {
+    color: $marine-blue;
+}
+
 // Button
-@mixin nextButton {
-    color: $alabaster;
-    background-color: $marine-blue;
-    padding: 10px 20px;
+@mixin button($color, $background-color, $horizontalPadding) {
+    color: $color;
+    background-color: $background-color;
+    text-transform: capitalize;
+    padding: 10px $horizontalPadding;
     margin-top: 1em;
     border: 0;
     border-radius: 5px;
     cursor: pointer;
-
-    &:hover {
-        filter: brightness(1.8);
-    }
-    &[disabled] {
-        cursor: none;
-        background-color: $pastel-blue;
-    }
 }
 
 body {
@@ -68,8 +66,6 @@ body {
                 }
 
                 label {
-                    color: $marine-blue;
-                    text-transform: capitalize;
                     display: inline-block;
                 }
 
@@ -123,8 +119,29 @@ body {
                         margin-top: 3em;
                     }
 
-                    button {
-                        @include nextButton();
+                    .next-button {
+                        @include button($alabaster, $marine-blue, 20px);
+
+                        &:hover {
+                            filter: brightness(1.8);
+                        }
+
+                        &[disabled] {
+                            background-color: $pastel-blue;
+                            cursor: auto;
+                        }
+
+                        &[disabled]:hover {
+                            filter: none;
+                        }
+                    }
+
+                    .back-button {
+                        @include button($cool-gray, transparent, 0);
+
+                        &:hover {
+                            filter: brightness(0.8);
+                        }
                     }
                 }
             }

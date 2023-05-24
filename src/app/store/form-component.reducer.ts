@@ -38,6 +38,11 @@ export function FormReducer(
                 ...state,
                 step: state.step + 1,
             };
+        case formComponentActions.STEP_BACK:
+            return {
+                ...state,
+                step: state.step - 1,
+            };
         default:
             return state;
     }

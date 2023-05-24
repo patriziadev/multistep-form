@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import * as fromApp from "../../store/app.reducer";
+import * as FormComponentActions from "../../store/form-component.actions";
 import { SubscriptionModel } from "src/app/models/subscription.model";
 
 @Component({
@@ -18,6 +19,7 @@ export class Step2Component implements OnInit, OnDestroy {
     public planInfo: FormGroup | any;
     public subscriptionData: SubscriptionModel;
     private subscriptionDataFromStore: any;
+    public isChecked: boolean[] = [];
 
     constructor(private store: Store<fromApp.AppState>) {}
 
@@ -34,7 +36,7 @@ export class Step2Component implements OnInit, OnDestroy {
                 this.subscriptionData.planType,
                 Validators.required
             ),
-            planPeriod: new FormControl(this.subscriptionData.yearlyPlan),
+            yearlyPlan: new FormControl(this.subscriptionData.yearlyPlan),
         });
     }
 
@@ -42,5 +44,28 @@ export class Step2Component implements OnInit, OnDestroy {
         this.subscriptionDataFromStore.unsubscribe();
     }
 
-    onSubmit() {}
+    onSubmit() {
+        this.subscriptionData = {
+            ...this.subscriptionData,
+            ...this.planInfo.value,
+        };
+
+        this.store.dispatch(new FormComponentActions.stepForward());
+        this.store.dispatch(
+            new FormComponentActions.editForm({
+                name: this.subscriptionData.name,
+                email: this.subscriptionData.email,
+                phone: this.subscriptionData.phone,
+                planType: this.planInfo.value.planType,
+                yearlyPlan: this.planInfo.value.yearlyPlan,
+                onlineService: this.subscriptionData.onlineService,
+                largerStorage: this.subscriptionData.largerStorage,
+                custoizableProfile: this.subscriptionData.custoizableProfile,
+            })
+        );
+    }
+
+    onGoBack() {
+        this.store.dispatch(new FormComponentActions.stepBack());
+    }
 }
