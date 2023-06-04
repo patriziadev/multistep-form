@@ -6,7 +6,7 @@
     <div class="form-body">
         <div id="plans">
             <label
-                *ngFor="let pt of planTypes; let i = index"
+                *ngFor="let pt of planTypes"
                 for="{{ pt.name }}"
                 [ngClass]="{
                     planItemSelected: planInfo.value.planType == pt.name
