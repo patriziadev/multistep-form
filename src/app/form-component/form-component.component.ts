@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import * as fromApp from "../store/app.reducer";
+import { planTypeModel } from "../models/planType.model";
 
 @Component({
     selector: "app-form-component",

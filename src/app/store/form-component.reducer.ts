@@ -1,4 +1,4 @@
-import { SubscriptionModel } from "./../models/subscription.model";
+import { SubscriptionModel } from "src/app/models/subscription.model";
 import * as formComponentActions from "./form-component.actions";
 
 export interface State {
@@ -8,14 +8,18 @@ export interface State {
 
 const initialState = {
     subscriptionData: {
-        name: "Ugo",
+        name: "",
         email: "",
         phone: "",
         planType: "",
+        planCost: 0,
         yearlyPlan: false,
         onlineService: false,
+        onlineServiceCost: 0,
         largerStorage: false,
-        custoizableProfile: false,
+        largerStorageCost: 0,
+        customizableProfile: false,
+        customizableProfileCost: 0,
     },
     step: 1,
 };
@@ -42,6 +46,11 @@ export function FormReducer(
             return {
                 ...state,
                 step: state.step - 1,
+            };
+        case formComponentActions.CHANGE_PLAN:
+            return {
+                ...state,
+                step: 2,
             };
         default:
             return state;

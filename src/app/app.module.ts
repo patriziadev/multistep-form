@@ -10,6 +10,8 @@ import { FormComponentComponent } from "./form-component/form-component.componen
 import { Step1Component } from "./form-component/step1/step1.component";
 import { Step2Component } from "./form-component/step2/step2.component";
 import * as fromApp from "./store/app.reducer";
+import { Step3Component } from './form-component/step3/step3.component';
+import { Step4Component } from './form-component/step4/step4.component';
 
 @NgModule({
     declarations: [
@@ -17,6 +19,8 @@ import * as fromApp from "./store/app.reducer";
         FormComponentComponent,
         Step1Component,
         Step2Component,
+        Step3Component,
+        Step4Component,
     ],
     imports: [
         BrowserModule,

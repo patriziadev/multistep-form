@@ -57,11 +57,16 @@ export class Step1Component implements OnInit, OnDestroy {
                 email: this.personalInfo.value.email,
                 phone: this.personalInfo.value.phone,
                 planType: this.formSubscriptionData.planType,
+                planCost: this.formSubscriptionData.planCost,
                 yearlyPlan: this.formSubscriptionData.yearlyPlan,
                 onlineService: this.formSubscriptionData.onlineService,
+                onlineServiceCost: this.formSubscriptionData.onlineServiceCost,
                 largerStorage: this.formSubscriptionData.largerStorage,
-                custoizableProfile:
-                    this.formSubscriptionData.custoizableProfile,
+                largerStorageCost: this.formSubscriptionData.largerStorageCost,
+                customizableProfile:
+                    this.formSubscriptionData.customizableProfile,
+                customizableProfileCost:
+                    this.formSubscriptionData.customizableProfileCost,
             })
         );
     }
