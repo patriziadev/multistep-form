@@ -42,5 +42,7 @@ export class Step4Component implements OnInit, OnDestroy {
         this.store.dispatch(new FormComponentActions.changePlan());
     }
 
-    onSubmit() {}
+    onSubmit() {
+        this.store.dispatch(new FormComponentActions.stepForward());
+    }
 }

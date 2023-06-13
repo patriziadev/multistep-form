@@ -34,11 +34,22 @@ $main-font-size: 16px;
 body {
     font-family: $main-font-family;
     font-size: $main-font-size;
+    color: $cool-gray;
     background-color: $magnolia;
+
+    a:link,
+    a:visited {
+        color: $cool-gray;
+        text-decoration: none;
+    }
+    a:hover {
+        color: $marine-blue !important;
+    }
 
     main {
         #wrapper {
             width: 50rem;
+            height: 30rem;
             max-height: 568px;
             border-radius: 20px;
             background-color: $alabaster;
@@ -56,7 +67,6 @@ body {
                 border-radius: 10px;
             }
             section {
-                color: $cool-gray;
                 padding: 0 3em;
                 width: 58%;
 
@@ -65,10 +75,12 @@ body {
                     font-size: xx-large;
                 }
 
-                #step1 {
+                #step {
                     display: flex;
                     flex-direction: column;
-                    justify-content: space-between;
+                    justify-content: center;
+                    height: 100%;
+
                     .input-form {
                         padding: 10px 0;
 
@@ -112,7 +124,7 @@ body {
 
                     .form-closure {
                         text-align: right;
-                        margin-top: 3em;
+                        margin-top: 1em;
                     }
 
                     .next-button {

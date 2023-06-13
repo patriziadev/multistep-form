@@ -12,6 +12,7 @@ import { Step2Component } from "./form-component/step2/step2.component";
 import * as fromApp from "./store/app.reducer";
 import { Step3Component } from './form-component/step3/step3.component';
 import { Step4Component } from './form-component/step4/step4.component';
+import { ThankyoupageComponent } from './thankyoupage/thankyoupage.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { Step4Component } from './form-component/step4/step4.component';
         Step2Component,
         Step3Component,
         Step4Component,
+        ThankyoupageComponent,
     ],
     imports: [
         BrowserModule,
