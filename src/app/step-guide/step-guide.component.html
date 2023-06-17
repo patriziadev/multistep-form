@@ -1,0 +1,10 @@
+<div id="steps">
+    <div class="step" *ngFor="let step of steps; let i = index">
+        <div class="step-number" [ngClass]="{ highlighted: i == stepNow - 1 }">
+            {{ i + 1 }}
+        </div>
+        <div class="step-text">
+            step {{ i }} <br /><span class="title">{{ step }}</span>
+        </div>
+    </div>
+</div>

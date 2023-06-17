@@ -36,5 +36,7 @@ export class DataServiceService {
         },
     ];
 
+    public steps = ["Your info", "Select plan", "Add-ons", "Summary"];
+
     constructor() {}
 }
