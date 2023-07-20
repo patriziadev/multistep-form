@@ -1,9 +1,9 @@
 <form [formGroup]="planInfo" (ngSubmit)="onSubmit()">
-    <div class="form-intro">
-        <h1>Pick add-ons</h1>
-        <p>Add-ons help enhance your gaming experience.</p>
-    </div>
     <div class="form-body">
+        <div class="form-intro">
+            <h1>Pick add-ons</h1>
+            <p>Add-ons help enhance your gaming experience.</p>
+        </div>
         <div class="addons-info">
             <label
                 *ngFor="let addon of addons"

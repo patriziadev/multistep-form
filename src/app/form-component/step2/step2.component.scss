@@ -1,8 +1,6 @@
 @import "../../../styles.scss";
 
 .form-body {
-    width: 100%;
-
     #plans {
         display: flex;
         justify-content: space-between;
@@ -118,4 +116,35 @@
 .form-closure {
     display: flex;
     justify-content: space-between;
+}
+
+@media only screen and (max-width: 768px) {
+    .form-body {
+        #plans {
+            flex-direction: column;
+            justify-content: space-between;
+            height: 17rem;
+
+            label {
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                justify-content: start;
+
+                img {
+                    padding: 10px;
+                }
+
+                .planTypeText {
+                    padding: 0 10px;
+                }
+            }
+        }
+
+        #period {
+            .planPeriod {
+                margin: 1rem 0 0;
+            }
+        }
+    }
 }

@@ -1,9 +1,9 @@
 <form [formGroup]="planInfo" (ngSubmit)="onSubmit()">
-    <div class="form-intro">
-        <h1>Select your plan</h1>
-        <p>You have the option of monthly or yearly billing.</p>
-    </div>
     <div class="form-body">
+        <div class="form-intro">
+            <h1>Select your plan</h1>
+            <p>You have the option of monthly or yearly billing.</p>
+        </div>
         <div id="plans">
             <label
                 *ngFor="let pt of planTypes"

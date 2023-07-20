@@ -36,6 +36,8 @@ body {
     font-size: $main-font-size;
     color: $cool-gray;
     background-color: $magnolia;
+    padding: 0;
+    margin: 0;
 
     a:link,
     a:visited {
@@ -116,7 +118,8 @@ body {
                                 border-color: $strawberry-red;
                             }
 
-                            &:focus {
+                            &:focus,
+                            &:active {
                                 border-color: $purplish-blue;
                             }
                         }
@@ -124,7 +127,9 @@ body {
 
                     .form-closure {
                         text-align: right;
-                        margin-top: 1em;
+                        bottom: 10px;
+                        position: fixed;
+                        width: 60%;
                     }
 
                     .next-button {
@@ -157,7 +162,7 @@ body {
     }
 
     footer {
-        position: absolute;
+        position: fixed;
         bottom: 0;
         width: 100%;
 
@@ -167,6 +172,69 @@ body {
             left: 50%;
             transform: translate(-50%, 0);
             padding: 15px 0;
+            font-size: small;
+            text-align: center;
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    body main {
+        #wrapper {
+            width: 100%;
+            display: block;
+            padding: 0;
+            position: initial;
+            transform: none;
+            background-color: transparent;
+
+            nav {
+                width: 100%;
+                height: 170px;
+                background-image: url("./assets/images/bg-sidebar-mobile.svg");
+                border-radius: 0;
+
+                #steps {
+                    display: flex;
+                    justify-content: center;
+
+                    .step-text {
+                        display: none;
+                    }
+                }
+            }
+
+            section {
+                width: initial;
+                padding: 0 1rem;
+
+                .form-body,
+                #thankyou {
+                    background: $alabaster;
+                    border-radius: 10px;
+                    padding: 1.5rem;
+                    margin-top: -4.5rem;
+                    box-shadow: 0 7px 10px -10px $cool-gray;
+
+                    h1 {
+                        margin: 0;
+                        font-size: x-large;
+                    }
+                }
+
+                #step .form-closure {
+                    position: absolute;
+                    bottom: 60px;
+                    left: 0;
+                    background: $alabaster;
+                    width: 100%;
+
+                    button.next-button,
+                    .back-button {
+                        margin: 10px 20px;
+                    }
+                }
+            }
         }
     }
 }

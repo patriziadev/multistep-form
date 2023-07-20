@@ -1,13 +1,13 @@
 @import "../../styles.scss";
 
 #steps {
-    padding: 2rem;
+    padding: 1rem;
     text-transform: uppercase;
     font-size: small;
 
     .step {
         display: flex;
-        margin: 15px;
+        margin: 25px 10px;
 
         .step-number {
             border-radius: 50%;
@@ -28,6 +28,10 @@
 
         .step-text {
             margin-left: 15px;
+
+            .counter {
+                font-size: smaller;
+            }
 
             .title {
                 color: $alabaster;
