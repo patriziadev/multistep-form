@@ -23,7 +23,9 @@ speed-measure-plugin*.json
 .settings/
 *.sublime-workspace
 
+
 # IDE - VSCode
+.vscode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -33,6 +35,7 @@ speed-measure-plugin*.json
 
 # misc
 /.sass-cache
+/.angular/cache
 /connect.lock
 /coverage
 /libpeerconnection.log
