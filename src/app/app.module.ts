@@ -31,7 +31,7 @@ import { StepGuideComponent } from './step-guide/step-guide.component';
         AppRoutingModule,
         ReactiveFormsModule,
         StoreModule.forRoot(fromApp.appReducer),
-        StoreDevtoolsModule.instrument(),
+        StoreDevtoolsModule.instrument({connectInZone: true}),
     ],
     providers: [],
     bootstrap: [AppComponent],
