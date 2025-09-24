@@ -7,6 +7,7 @@ import * as fromApp from "../store/app.reducer";
     selector: "app-step-guide",
     templateUrl: "./step-guide.component.html",
     styleUrls: ["./step-guide.component.scss"],
+    standalone: false,
 })
 export class StepGuideComponent implements OnInit, OnDestroy {
     public steps: string[] = [];

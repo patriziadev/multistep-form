@@ -11,6 +11,7 @@ import { DataServiceService } from "src/app/services/data-service.service";
     selector: "app-step3",
     templateUrl: "./step3.component.html",
     styleUrls: ["./step3.component.scss"],
+    standalone: false,
 })
 export class Step3Component implements OnInit {
     public addons: addonModel[] = [];

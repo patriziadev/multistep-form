@@ -11,6 +11,7 @@ import { planTypeModel } from "src/app/models/planType.model";
     selector: "app-step2",
     templateUrl: "./step2.component.html",
     styleUrls: ["./step2.component.scss"],
+    standalone: false,
 })
 export class Step2Component implements OnInit, OnDestroy {
     public planTypes: planTypeModel[] = [];

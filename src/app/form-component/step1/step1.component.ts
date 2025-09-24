@@ -9,6 +9,7 @@ import { SubscriptionModel } from "src/app/models/subscription.model";
     selector: "app-step1",
     templateUrl: "./step1.component.html",
     styleUrls: ["./step1.component.scss"],
+    standalone: false,
 })
 export class Step1Component implements OnInit, OnDestroy {
     public personalInfo: FormGroup | any;

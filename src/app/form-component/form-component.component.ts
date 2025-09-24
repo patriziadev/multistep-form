@@ -7,6 +7,7 @@ import { planTypeModel } from "../models/planType.model";
     selector: "app-form-component",
     templateUrl: "./form-component.component.html",
     styleUrls: ["./form-component.component.scss"],
+    standalone: false,
 })
 export class FormComponentComponent implements OnInit, OnDestroy {
     public step: number;

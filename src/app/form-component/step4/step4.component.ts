@@ -8,6 +8,7 @@ import { SubscriptionModel } from "src/app/models/subscription.model";
     selector: "app-step4",
     templateUrl: "./step4.component.html",
     styleUrls: ["./step4.component.scss"],
+    standalone: false,
 })
 export class Step4Component implements OnInit, OnDestroy {
     private subscriptionDataFromStore: any;
