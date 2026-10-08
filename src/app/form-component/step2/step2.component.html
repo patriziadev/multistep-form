@@ -26,11 +26,11 @@
                     </p>
                     <p
                         class="planTypeCost"
-                        *ngIf="planInfo.get('yearlyPlan').value"
+                        *ngIf="planInfo.get('yearlyPlan')?.value"
                     >
                         ${{ pt.yearlyCost }}/yr
                     </p>
-                    <p class="promo" *ngIf="planInfo.get('yearlyPlan').value">
+                    <p class="promo" *ngIf="planInfo.get('yearlyPlan')?.value">
                         2 month free
                     </p>
                 </div>
@@ -48,7 +48,7 @@
             <div class="planPeriod">
                 <p
                     [ngClass]="{
-                        selectedItem: !planInfo.get('yearlyPlan').value
+                        selectedItem: !planInfo.get('yearlyPlan')?.value
                     }"
                 >
                     Monthly

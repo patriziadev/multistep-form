@@ -1,9 +1,7 @@
-export class addonModel {
-    constructor(
-        public id: string,
-        public name: string,
-        public description: string,
-        public monthlyCost: number,
-        public yearlyCost: number
-    ) {}
+export interface AddonModel {
+    id: string;
+    name: string;
+    description: string;
+    monthlyCost: number;
+    yearlyCost: number;
 }

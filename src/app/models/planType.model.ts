@@ -1,7 +1,5 @@
-export class planTypeModel {
-    constructor(
-        public name: string,
-        public monthlyCost: number,
-        public yearlyCost: number
-    ) {}
+export interface PlanTypeModel {
+    name: string;
+    monthlyCost: number;
+    yearlyCost: number;
 }

@@ -1,11 +1,12 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { DataServiceService } from "src/app/services/data-service.service";
 import { Store } from "@ngrx/store";
-import * as fromApp from "../../store/app.reducer";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { DataServiceService } from "src/app/services/data-service.service";
 import * as FormComponentActions from "../../store/form-component.actions";
+import { selectSubscriptionData } from "../../store/selectors";
 import { SubscriptionModel } from "src/app/models/subscription.model";
-import { planTypeModel } from "src/app/models/planType.model";
+import { PlanTypeModel } from "src/app/models/planType.model";
 
 @Component({
     selector: "app-step2",
@@ -13,27 +14,24 @@ import { planTypeModel } from "src/app/models/planType.model";
     styleUrls: ["./step2.component.scss"],
     standalone: false,
 })
-export class Step2Component implements OnInit, OnDestroy {
-    public planTypes: planTypeModel[] = [];
-    public planInfo: FormGroup | any;
-    public subscriptionData: SubscriptionModel;
-    private subscriptionDataFromStore: any;
-    public isChecked: boolean[] = [];
-    private choosenPlanCost: any;
+export class Step2Component implements OnInit {
+    public planTypes: PlanTypeModel[] = [];
+    public planInfo!: FormGroup;
+    public subscriptionData!: SubscriptionModel;
 
-    constructor(
-        private store: Store<fromApp.AppState>,
-        private dataService: DataServiceService
-    ) {}
+    private store = inject(Store);
+    private dataService = inject(DataServiceService);
+
+    constructor() {
+        this.store
+            .select(selectSubscriptionData)
+            .pipe(takeUntilDestroyed())
+            .subscribe((data) => {
+                this.subscriptionData = data;
+            });
+    }
 
     ngOnInit() {
-        this.subscriptionDataFromStore = this.store
-            .select("form")
-            .subscribe((data) => {
-                this.subscriptionData = data.subscriptionData;
-                return this.subscriptionData;
-            });
-
         this.planTypes = this.dataService.planTypes;
         this.planInfo = new FormGroup({
             planType: new FormControl(
@@ -44,44 +42,23 @@ export class Step2Component implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy() {
-        this.subscriptionDataFromStore.unsubscribe();
-    }
-
     onSubmit() {
-        this.subscriptionData = {
-            ...this.subscriptionData,
-            ...this.planInfo.value,
-        };
-
-        this.choosenPlanCost = this.dataService.planTypes
-            .filter((el) => {
-                return el.name == this.planInfo.value.planType;
-            })
-            .map((el) => {
-                if (this.planInfo.value.yearlyPlan) {
-                    return el.yearlyCost;
-                } else {
-                    return el.monthlyCost;
-                }
-            });
+        const selectedPlan = this.dataService.planTypes.find(
+            (plan) => plan.name === this.planInfo.value.planType
+        );
+        const isYearly: boolean = this.planInfo.value.yearlyPlan;
+        const planCost = selectedPlan
+            ? isYearly
+                ? selectedPlan.yearlyCost
+                : selectedPlan.monthlyCost
+            : 0;
 
         this.store.dispatch(new FormComponentActions.stepForward());
         this.store.dispatch(
             new FormComponentActions.editForm({
-                name: this.subscriptionData.name,
-                email: this.subscriptionData.email,
-                phone: this.subscriptionData.phone,
                 planType: this.planInfo.value.planType,
-                planCost: Number(this.choosenPlanCost),
-                yearlyPlan: this.planInfo.value.yearlyPlan,
-                onlineService: this.subscriptionData.onlineService,
-                onlineServiceCost: this.subscriptionData.onlineServiceCost,
-                largerStorage: this.subscriptionData.largerStorage,
-                largerStorageCost: this.subscriptionData.largerStorageCost,
-                customizableProfile: this.subscriptionData.customizableProfile,
-                customizableProfileCost:
-                    this.subscriptionData.customizableProfileCost,
+                planCost,
+                yearlyPlan: isYearly,
             })
         );
     }

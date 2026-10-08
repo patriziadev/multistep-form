@@ -1,18 +1,18 @@
 import { Injectable } from "@angular/core";
-import { planTypeModel } from "../models/planType.model";
-import { addonModel } from "../models/addon.model";
+import { PlanTypeModel } from "../models/planType.model";
+import { AddonModel } from "../models/addon.model";
 
 @Injectable({
     providedIn: "root",
 })
 export class DataServiceService {
-    public planTypes: planTypeModel[] = [
+    public planTypes: PlanTypeModel[] = [
         { name: "arcade", monthlyCost: 9, yearlyCost: 90 },
         { name: "advanced", monthlyCost: 12, yearlyCost: 120 },
         { name: "pro", monthlyCost: 15, yearlyCost: 150 },
     ];
 
-    public addons: addonModel[] = [
+    public addons: AddonModel[] = [
         {
             id: "onlineService",
             name: "Online service",
@@ -37,6 +37,4 @@ export class DataServiceService {
     ];
 
     public steps = ["Your info", "Select plan", "Add-ons", "Summary"];
-
-    constructor() {}
 }

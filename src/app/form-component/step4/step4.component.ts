@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { Store } from "@ngrx/store";
-import * as fromApp from "../../store/app.reducer";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import * as FormComponentActions from "../../store/form-component.actions";
+import { selectSubscriptionData } from "../../store/selectors";
 import { SubscriptionModel } from "src/app/models/subscription.model";
 
 @Component({
@@ -10,29 +11,24 @@ import { SubscriptionModel } from "src/app/models/subscription.model";
     styleUrls: ["./step4.component.scss"],
     standalone: false,
 })
-export class Step4Component implements OnInit, OnDestroy {
-    private subscriptionDataFromStore: any;
-    public subscriptionData: SubscriptionModel;
-    public planType: any;
-    public total: number;
+export class Step4Component {
+    public subscriptionData!: SubscriptionModel;
+    public total: number = 0;
 
-    constructor(private store: Store<fromApp.AppState>) {}
+    private store = inject(Store);
 
-    ngOnInit() {
-        this.subscriptionDataFromStore = this.store
-            .select("form")
+    constructor() {
+        this.store
+            .select(selectSubscriptionData)
+            .pipe(takeUntilDestroyed())
             .subscribe((data) => {
-                return (this.subscriptionData = data.subscriptionData);
+                this.subscriptionData = data;
+                this.total =
+                    data.planCost +
+                    data.onlineServiceCost +
+                    data.largerStorageCost +
+                    data.customizableProfileCost;
             });
-        this.total =
-            this.subscriptionData.planCost +
-            this.subscriptionData.onlineServiceCost +
-            this.subscriptionData.largerStorageCost +
-            this.subscriptionData.customizableProfileCost;
-    }
-
-    ngOnDestroy() {
-        this.subscriptionDataFromStore.unsubscribe();
     }
 
     onGoBack() {

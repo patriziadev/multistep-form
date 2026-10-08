@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import * as FormComponentActions from "../../store/form-component.actions";
-import * as fromApp from "../../store/app.reducer";
+import { selectSubscriptionData } from "../../store/selectors";
 import { SubscriptionModel } from "src/app/models/subscription.model";
 
 @Component({
@@ -11,21 +12,22 @@ import { SubscriptionModel } from "src/app/models/subscription.model";
     styleUrls: ["./step1.component.scss"],
     standalone: false,
 })
-export class Step1Component implements OnInit, OnDestroy {
-    public personalInfo: FormGroup | any;
-    private subscriptionDataFromStore: any;
-    public formSubscriptionData: SubscriptionModel;
+export class Step1Component implements OnInit {
+    public personalInfo!: FormGroup;
+    public formSubscriptionData!: SubscriptionModel;
 
-    constructor(private store: Store<fromApp.AppState>) {}
+    private store = inject(Store);
+
+    constructor() {
+        this.store
+            .select(selectSubscriptionData)
+            .pipe(takeUntilDestroyed())
+            .subscribe((data) => {
+                this.formSubscriptionData = data;
+            });
+    }
 
     ngOnInit() {
-        this.subscriptionDataFromStore = this.store
-            .select("form")
-            .subscribe((data) => {
-                this.formSubscriptionData = data.subscriptionData;
-                return this.formSubscriptionData;
-            });
-
         this.personalInfo = new FormGroup({
             name: new FormControl(
                 this.formSubscriptionData.name,
@@ -42,32 +44,13 @@ export class Step1Component implements OnInit, OnDestroy {
         });
     }
 
-    ngOnDestroy(): void {
-        this.subscriptionDataFromStore.unsubscribe();
-    }
-
     onSubmit() {
-        this.formSubscriptionData = {
-            ...this.formSubscriptionData,
-            ...this.personalInfo.value,
-        };
         this.store.dispatch(new FormComponentActions.stepForward());
         this.store.dispatch(
             new FormComponentActions.editForm({
                 name: this.personalInfo.value.name,
                 email: this.personalInfo.value.email,
                 phone: this.personalInfo.value.phone,
-                planType: this.formSubscriptionData.planType,
-                planCost: this.formSubscriptionData.planCost,
-                yearlyPlan: this.formSubscriptionData.yearlyPlan,
-                onlineService: this.formSubscriptionData.onlineService,
-                onlineServiceCost: this.formSubscriptionData.onlineServiceCost,
-                largerStorage: this.formSubscriptionData.largerStorage,
-                largerStorageCost: this.formSubscriptionData.largerStorageCost,
-                customizableProfile:
-                    this.formSubscriptionData.customizableProfile,
-                customizableProfileCost:
-                    this.formSubscriptionData.customizableProfileCost,
             })
         );
     }

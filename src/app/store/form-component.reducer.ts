@@ -6,7 +6,7 @@ export interface State {
     step: number;
 }
 
-const initialState = {
+const initialState: State = {
     subscriptionData: {
         name: "",
         email: "",

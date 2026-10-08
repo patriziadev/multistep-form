@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { Store } from "@ngrx/store";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { DataServiceService } from "../services/data-service.service";
-import * as fromApp from "../store/app.reducer";
+import { selectStep } from "../store/selectors";
 
 @Component({
     selector: "app-step-guide",
@@ -9,28 +10,20 @@ import * as fromApp from "../store/app.reducer";
     styleUrls: ["./step-guide.component.scss"],
     standalone: false,
 })
-export class StepGuideComponent implements OnInit, OnDestroy {
+export class StepGuideComponent {
     public steps: string[] = [];
-    public stepNow: number;
-    private subscriptionDataFromStore: any;
+    public stepNow: number = 1;
 
-    constructor(
-        private dataService: DataServiceService,
-        private store: Store<fromApp.AppState>
-    ) {}
+    private store = inject(Store);
+    private dataService = inject(DataServiceService);
 
-    ngOnInit() {
+    constructor() {
         this.steps = this.dataService.steps;
-        this.subscriptionDataFromStore = this.store
-            .select("form")
-            .subscribe((data) => {
-                console.log("inner " + data.step);
-                this.stepNow = data.step;
-                return this.stepNow;
+        this.store
+            .select(selectStep)
+            .pipe(takeUntilDestroyed())
+            .subscribe((step) => {
+                this.stepNow = step;
             });
-    }
-
-    ngOnDestroy() {
-        this.subscriptionDataFromStore.unsubscribe();
     }
 }

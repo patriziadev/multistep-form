@@ -10,8 +10,8 @@
                 <div
                     class="validation-error"
                     *ngIf="
-                        !personalInfo.get('name').valid &&
-                        personalInfo.get('name').touched
+                        !personalInfo.get('name')?.valid &&
+                        personalInfo.get('name')?.touched
                     "
                 >
                     This field is required
@@ -31,8 +31,8 @@
                 <div
                     class="validation-error"
                     *ngIf="
-                        !personalInfo.get('email').valid &&
-                        personalInfo.get('email').touched
+                        !personalInfo.get('email')?.valid &&
+                        personalInfo.get('email')?.touched
                     "
                 >
                     Insert a valid email address
@@ -52,8 +52,8 @@
                 <div
                     class="validation-error"
                     *ngIf="
-                        !personalInfo.get('phone').valid &&
-                        personalInfo.get('phone').touched
+                        !personalInfo.get('phone')?.valid &&
+                        personalInfo.get('phone')?.touched
                     "
                 >
                     This field is required

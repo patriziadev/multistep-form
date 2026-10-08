@@ -8,7 +8,7 @@ export const CHANGE_PLAN = "[Form Component] Change Plan";
 
 export class editForm implements Action {
     readonly type = EDIT_FORM;
-    constructor(public payload: SubscriptionModel) {}
+    constructor(public payload: Partial<SubscriptionModel>) {}
 }
 
 export class stepForward implements Action {

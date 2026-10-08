@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { Store } from "@ngrx/store";
-import * as fromApp from "../store/app.reducer";
-import { planTypeModel } from "../models/planType.model";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { selectStep } from "../store/selectors";
 
 @Component({
     selector: "app-form-component",
@@ -9,22 +9,17 @@ import { planTypeModel } from "../models/planType.model";
     styleUrls: ["./form-component.component.scss"],
     standalone: false,
 })
-export class FormComponentComponent implements OnInit, OnDestroy {
-    public step: number;
-    public subscriptionDataFromStore: any;
+export class FormComponentComponent {
+    public step: number = 1;
 
-    constructor(private store: Store<fromApp.AppState>) {}
+    private store = inject(Store);
 
-    ngOnInit() {
-        this.subscriptionDataFromStore = this.store
-            .select("form")
-            .subscribe((data) => {
-                this.step = data.step;
-                return this.step;
+    constructor() {
+        this.store
+            .select(selectStep)
+            .pipe(takeUntilDestroyed())
+            .subscribe((step) => {
+                this.step = step;
             });
-    }
-
-    ngOnDestroy() {
-        this.subscriptionDataFromStore.unsubscribe();
     }
 }
